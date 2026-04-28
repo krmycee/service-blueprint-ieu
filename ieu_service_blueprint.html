@@ -1,0 +1,274 @@
+<h2 class="sr-only">Service blueprint for IEU design students across five semester phases, comparing Persona 1 (Ela) and Persona 2 (Kaan).</h2>
+
+<div style="display: flex; gap: 8px; padding: 16px 0 12px; align-items: center; flex-wrap: wrap; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 0;">
+  <span style="font-size: 13px; color: var(--color-text-secondary); margin-right: 4px;">Persona</span>
+  <button id="btn-p1" class="active" style="font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 0.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-primary); cursor: pointer;">P1 — Ela K. (Overwhelmed Senior)</button>
+  <button id="btn-p2" style="font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 0.5px solid var(--color-border-tertiary); background: transparent; color: var(--color-text-secondary); cursor: pointer;">P2 — Kaan D. (Resilient Adapter)</button>
+</div>
+
+<div id="blueprint" style="overflow-x: auto; padding: 16px 0;"></div>
+
+<div style="display: flex; gap: 16px; padding: 12px 0 4px; flex-wrap: wrap; font-size: 12px; color: var(--color-text-secondary); border-top: 0.5px solid var(--color-border-tertiary);">
+  <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: #B5D4F4;"></span>Frontstage (visible)</span>
+  <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: #D3D1C7;"></span>Backstage (invisible)</span>
+  <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: #F7C1C1;"></span>Pain points</span>
+  <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: #C0DD97;"></span>Opportunities</span>
+</div>
+
+<style>
+.bp-table { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 1200px; font-size: 12px; }
+.bp-table th, .bp-table td { vertical-align: top; padding: 10px 12px; border-bottom: 0.5px solid var(--color-border-tertiary); border-right: 0.5px solid var(--color-border-tertiary); line-height: 1.5; }
+.bp-table th:last-child, .bp-table td:last-child { border-right: none; }
+.bp-table thead th { font-weight: 500; font-size: 13px; padding: 12px; color: var(--color-text-primary); position: sticky; top: 0; z-index: 1; background: var(--color-background-primary); }
+.bp-row-label { font-weight: 500; font-size: 12px; color: var(--color-text-primary); white-space: nowrap; background: var(--color-background-secondary); width: 140px; }
+.bp-row-sub { font-size: 10px; color: var(--color-text-tertiary); font-weight: 400; display: block; margin-top: 2px; }
+.bp-divider td { background: var(--color-background-tertiary); border-bottom: 0.5px solid var(--color-border-secondary); padding: 6px 12px; font-size: 11px; color: var(--color-text-secondary); font-weight: 500; letter-spacing: 0.4px; text-transform: uppercase; }
+.phase-h-1 { background: #E6F1FB; color: #0C447C; }
+.phase-h-2 { background: #F1EFE8; color: #2C2C2A; }
+.phase-h-3 { background: #B5D4F4; color: #042C53; }
+.phase-h-4 { background: #FAC775; color: #412402; }
+.phase-h-5 { background: #CECBF6; color: #26215C; }
+.bp-cell-fs { background: rgba(181, 212, 244, 0.2); }
+.bp-cell-bs { background: rgba(211, 209, 199, 0.25); }
+.bp-cell-pain { background: rgba(247, 193, 193, 0.35); }
+.bp-cell-opp { background: rgba(192, 221, 151, 0.3); }
+.bp-cell-emo { background: rgba(206, 203, 246, 0.25); }
+.tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 4px; background: var(--color-background-secondary); color: var(--color-text-secondary); margin: 1px 2px 1px 0; border: 0.5px solid var(--color-border-tertiary); }
+button.active { background: var(--color-background-secondary) !important; border-color: var(--color-border-secondary) !important; color: var(--color-text-primary) !important; }
+</style>
+
+<script>
+const PHASES = ["Semester Start", "Mid Semester", "Deadline Week", "Jury / Critique", "Post-Jury Recovery"];
+
+const DATA = {
+  p1: {
+    actions: [
+      "Attends studio intro. Reviews brief. Buys initial materials. Sets rough personal timeline.",
+      "Develops concept. Attends mid-reviews. Tracks expenses. Starts scholarship application.",
+      "Pulls multiple all-nighters. Produces final models, drawings, and renders. Skips meals.",
+      "Presents to jury panel. Defends decisions verbally. Receives in-person feedback.",
+      "Tries to rest. Avoids studio. Slowly processes feedback. Reluctantly plans next term."
+    ],
+    thoughts: [
+      "\"I hope I understand what they want this time.\"",
+      "\"Am I on the right track? Money is tight.\"",
+      "\"I can sleep after the deadline. Is this good enough?\"",
+      "\"Please tell me clearly what works. I'm too tired to defend this.\"",
+      "\"I feel empty. I can't do this again next semester.\""
+    ],
+    emotion: [3, 2, 1, 1, 2],
+    emotionLabel: ["Cautiously hopeful","Stressed & worried","Overwhelmed, unwell","Tense → numb","Drained, demotivated"],
+    touchpoints: [
+      ["Studio classroom","Course brief PDF","Email from coordinator","Material store"],
+      ["Mid-review session","Studio desk","Scholarship portal","Receipts & expense tracker"],
+      ["Studio (overnight)","Print shop","Model-making lab","Personal laptop"],
+      ["Jury room","Pin-up wall","Verbal feedback","Phone (notes)"],
+      ["Bedroom","WhatsApp group","Coffee shop","University portal"]
+    ],
+    channels: [
+      ["In-person","Email","Print"],
+      ["In-person","Web portal","Spreadsheet"],
+      ["In-person","Print shop","Digital tools"],
+      ["In-person","Verbal","Handwritten"],
+      ["Remote","Mobile messaging","Web portal"]
+    ],
+    devices: [
+      ["Laptop","Sketchbook","Phone"],
+      ["Laptop","Sketchbook","Phone"],
+      ["Laptop","Printer","Tools","Phone"],
+      ["Printed boards","Phone","Notebook"],
+      ["Phone","Laptop"]
+    ],
+    frontstage: [
+      "Studio instructor introduces brief. Coordinator emails schedule. Material store clerks help with purchases.",
+      "Instructor gives quick desk crits. Mid-review panel evaluates draft work. Scholarship office responds slowly to email.",
+      "Print shop staff handle late-night requests. Lab assistants supervise model-making. Peers share workspace silently.",
+      "Jury panel (3–4 instructors) listens and critiques. External jury member adds outside perspective.",
+      "Friends and family check in. No formal contact from instructors or counselors. Coordinator announces next term."
+    ],
+    backstage: [
+      "Curriculum committee writes briefs. Coordinator schedules studios. IT manages portal access.",
+      "Faculty meet to align rubrics (often informally). Scholarship office processes applications. Finance manages budgets.",
+      "Print shop manages queues. Lab schedules slots. Studio cleaners reset spaces overnight.",
+      "Coordinator schedules jury rooms. AV team sets up equipment. Faculty pre-discuss expectations briefly.",
+      "Faculty grade in private. Department reviews jury outcomes. No structured wellbeing follow-up exists."
+    ],
+    support: [
+      "Library, IT helpdesk, course coordinator email",
+      "Scholarship office, library, peer informal channels",
+      "Print shop, lab booking, late-night campus access",
+      "AV setup, studio coordinator, jury logistics",
+      "(No active support touchpoint — gap)"
+    ],
+    pains: [
+      "No clear rubric. Materials list comes too late. Cost surprises hit immediately.",
+      "Feedback inconsistent across instructors. Scholarship process slow & opaque. Anxiety builds.",
+      "Sleep collapses (5–6 nights of <4 hrs). Eats poorly. Heart palpitations. No workload pacing.",
+      "Outcome depends on which instructor is in the panel. Verbal feedback is hard to recall later.",
+      "No structured debrief. Doesn't know how to improve. Feels isolated and unsupported."
+    ],
+    opportunities: [
+      "HMW deliver a clear rubric, milestone plan, and material budget on day 1?",
+      "HMW standardize mid-review feedback and accelerate scholarship decisions?",
+      "HMW redistribute deadlines to prevent crunch and protect basic health?",
+      "HMW provide structured, written, growth-oriented jury feedback?",
+      "HMW offer a structured post-jury debrief and check-in within 7 days?"
+    ]
+  },
+  p2: {
+    actions: [
+      "Attends studio intro. Reads brief carefully. Starts concept early. Plans gym schedule.",
+      "Iterates concept. Goes to gym to manage stress. Asks peers for informal feedback.",
+      "Works intensively. Cuts gym sessions. Sleep decreases but maintains short exercise breaks.",
+      "Presents project. Listens carefully. Adapts pitch based on instructor tone.",
+      "Reflects on feedback. Returns to gym & routine. Talks to peers about the experience."
+    ],
+    thoughts: [
+      "\"Let me plan this so I'm not overwhelmed later.\"",
+      "\"I'm on track — but I wish feedback was clearer.\"",
+      "\"I just need to get through this week.\"",
+      "\"How this goes depends on who's in the jury.\"",
+      "\"That went okay. Energized if feedback was good.\""
+    ],
+    emotion: [4, 3, 2, 3, 4],
+    emotionLabel: ["Optimistic, organized","Manageable stress","Stressed but coping","Nervous, context-dependent","Neutral → relieved"],
+    touchpoints: [
+      ["Studio classroom","Course brief PDF","Personal calendar app","Gym"],
+      ["Studio desk","Gym","Peer chats (Discord)","Library"],
+      ["Studio","Print shop","Quick gym visits","Personal laptop"],
+      ["Jury room","Pin-up wall","Verbal feedback","Notes app"],
+      ["Gym","Peer hangout","Studio (light visits)"]
+    ],
+    channels: [
+      ["In-person","Mobile app","Print"],
+      ["In-person","Discord","Web portal"],
+      ["In-person","Digital tools","Print"],
+      ["In-person","Verbal","Mobile notes"],
+      ["In-person","Mobile messaging"]
+    ],
+    devices: [
+      ["Laptop","Calendar app","Phone"],
+      ["Laptop","Phone","Sketchbook"],
+      ["Laptop","Printer","Phone"],
+      ["Printed boards","Phone"],
+      ["Phone","Laptop"]
+    ],
+    frontstage: [
+      "Studio instructor introduces brief. Coordinator emails schedule. Gym front desk staff.",
+      "Instructor gives quick crits. Peers exchange feedback informally. Library staff support quiet study.",
+      "Print shop staff handle requests. Peers work alongside in studio. Lab assistants supervise.",
+      "Jury panel (3–4 instructors). External jury member adds perspective. Tone is highly variable.",
+      "Peers debrief socially. Gym is reliable touchpoint. No formal university follow-up."
+    ],
+    backstage: [
+      "Curriculum committee writes briefs. Coordinator schedules studios. Gym manages memberships.",
+      "Faculty informally align on feedback. Library schedules quiet zones. Discord peer communities self-organize.",
+      "Print shop manages queues. Lab schedules slots. Gym manages off-peak access.",
+      "Coordinator schedules juries. AV team sets up. Faculty pre-discuss informally.",
+      "Faculty grade privately. Department reviews outcomes. No structured wellbeing protocol."
+    ],
+    support: [
+      "Library, IT helpdesk, gym membership system",
+      "Library quiet zones, peer Discord servers",
+      "Print shop, lab booking, gym off-peak access",
+      "AV setup, studio coordinator, jury logistics",
+      "Gym, peer network (no official channel)"
+    ],
+    pains: [
+      "No published full-semester deadline calendar. Hard to plan around overlapping courses.",
+      "Inconsistent peer & instructor feedback. Limited quiet study spaces during midterms.",
+      "Loses physical activity buffer when time collapses. Sleep drops noticeably.",
+      "Outcome depends entirely on jury composition. Feedback quality is unpredictable.",
+      "No formal debrief. Support services feel too formal & time-consuming for short check-ins."
+    ],
+    opportunities: [
+      "HMW publish a full semester deadline calendar from week 1?",
+      "HMW provide dedicated quiet focus zones for deep work on campus?",
+      "HMW help students preserve physical routines during high-pressure weeks?",
+      "HMW make jury feedback structured and consistent regardless of panel?",
+      "HMW offer 15–20 min low-barrier drop-in counseling that fits busy schedules?"
+    ]
+  }
+};
+
+const ROW_GROUPS = [
+  { divider: "Frontstage — what the student does & feels" },
+  { key: "actions",     label: "Actions & activities", sub: "Observable behaviour", cls: "bp-cell-fs" },
+  { key: "thoughts",    label: "Thoughts",             sub: "Internal monologue",   cls: "bp-cell-fs" },
+  { key: "emotion",     label: "Emotional state",       sub: "Mood & physical",      cls: "bp-cell-emo" },
+  { key: "touchpoints", label: "Touchpoints",          sub: "Where contact happens",cls: "bp-cell-fs" },
+  { key: "channels",    label: "Channels",             sub: "Medium of contact",    cls: "bp-cell-fs" },
+  { key: "devices",     label: "Devices & tools",      sub: "What is used",         cls: "bp-cell-fs" },
+  { divider: "Backstage — what supports the experience" },
+  { key: "frontstage",  label: "Frontstage actors",    sub: "Visible to student",   cls: "bp-cell-fs" },
+  { key: "backstage",   label: "Backstage actors",     sub: "Behind the scenes",    cls: "bp-cell-bs" },
+  { key: "support",     label: "Support processes",    sub: "Systems & infra",      cls: "bp-cell-bs" },
+  { divider: "Insights — friction & design space" },
+  { key: "pains",        label: "Pain points",          sub: "Where it breaks",      cls: "bp-cell-pain" },
+  { key: "opportunities",label: "Opportunities (HMW)",  sub: "Design directions",    cls: "bp-cell-opp" }
+];
+
+function emojiFromScore(s) {
+  return ["", "😣", "😟", "😐", "🙂", "😊"][s] || "";
+}
+
+function renderCell(value, key) {
+  if (key === "emotion") {
+    return "";
+  }
+  if (Array.isArray(value)) {
+    return value.map(v => `<span class="tag">${v}</span>`).join("");
+  }
+  return value;
+}
+
+function renderEmotionCell(score, label) {
+  const dots = "●".repeat(score) + "<span style='color:var(--color-border-tertiary)'>" + "●".repeat(5-score) + "</span>";
+  return `<div style="font-size:18px;line-height:1;margin-bottom:4px">${emojiFromScore(score)}</div>
+          <div style="font-size:11px;letter-spacing:1px;color:var(--color-text-secondary);margin-bottom:4px">${dots}</div>
+          <div>${label}</div>`;
+}
+
+function buildBlueprint(personaKey) {
+  const d = DATA[personaKey];
+  const headerCells = PHASES.map((p, i) =>
+    `<th class="phase-h-${i+1}">${p}</th>`
+  ).join("");
+
+  const rows = ROW_GROUPS.map(group => {
+    if (group.divider) {
+      return `<tr class="bp-divider"><td colspan="6">${group.divider}</td></tr>`;
+    }
+    const cells = PHASES.map((_, i) => {
+      let content;
+      if (group.key === "emotion") {
+        content = renderEmotionCell(d.emotion[i], d.emotionLabel[i]);
+      } else {
+        content = renderCell(d[group.key][i], group.key);
+      }
+      return `<td class="${group.cls}">${content}</td>`;
+    }).join("");
+    return `<tr><td class="bp-row-label">${group.label}<span class="bp-row-sub">${group.sub}</span></td>${cells}</tr>`;
+  }).join("");
+
+  return `<table class="bp-table">
+    <thead><tr><th></th>${headerCells}</tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+const container = document.getElementById("blueprint");
+const btn1 = document.getElementById("btn-p1");
+const btn2 = document.getElementById("btn-p2");
+
+function render(persona) {
+  container.innerHTML = buildBlueprint(persona);
+  if (persona === "p1") { btn1.classList.add("active"); btn2.classList.remove("active"); }
+  else { btn2.classList.add("active"); btn1.classList.remove("active"); }
+}
+
+btn1.addEventListener("click", () => render("p1"));
+btn2.addEventListener("click", () => render("p2"));
+
+render("p1");
+</script>
